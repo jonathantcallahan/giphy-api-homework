@@ -1,5 +1,8 @@
 var topics = ["surprised","laughing","clapping","confused","happy"]
-var gifSearch
+var gifSearch;
+var apiKey = "dc6zaTOxFJmzC"
+
+
 function createButton(buttonTopic){
     var buttonHtml = "<div data='" + buttonTopic + "' class='button'>" + buttonTopic + "</div>"
     $("#button-container").append(buttonHtml)
@@ -31,7 +34,6 @@ $(document).delegate(".button", "click", function(){
     $("#image-container").html("");
     gifSearch = $(this).attr("data")
     console.log(gifSearch);
-    var apiKey = "dc6zaTOxFJmzC"
     var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10")
     console.log(queryUrl);
     $.ajax({
@@ -43,15 +45,20 @@ $(document).delegate(".button", "click", function(){
 })
 
 $(document).delegate("#image", "click", function(){
-    if($(this).attr("image-paused") === "true"){
+    var r = $(this).attr("image-paused");
+    console.log(r);
+    var el = $(this)[0];
+    if(r){
         console.log($(this).attr("src"))
         var imageIndex = $(this).attr("image-number")
         console.log(imageIndex)
         var imageUrl = "https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10"
         $.ajax({
-            url: 
-        }).done(function(){
-            $(this).attr("src") = userInput.data[imageIndex].images.fixed_height.url;
+            url: imageUrl,
+            method: "GET",
+        }).done(function(userInput){
+            console.log(el)
+            el.attr("src", userInput.data[imageIndex].images.fixed_height.url);
         })
         
     } 
