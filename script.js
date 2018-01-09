@@ -22,7 +22,7 @@ function createImage(userInput){
     for(var i = 0; i < 10; i++){
         var imgUrl = userInput.data[i].images.fixed_width.url;
         var imgRating = userInput.data[i].rating;
-        var imgHtml = ("<div class='giphy-image'><div class='image-rating'>" + imgRating + "</div><img src='" + imgUrl + "'></div>") 
+        var imgHtml = ("<div class='giphy-image'><div class='image-rating'> Rating: " + imgRating + "</div><img id='image' image-number='" + i + "' src='" + imgUrl + "'></div>") 
         $("#image-container").append(imgHtml);
     }
 }
@@ -40,5 +40,9 @@ $(".button").on("click", function(){
     }).done(function(response){
         createImage(response)
     })
+})
+
+$("#image").on("click", function(){
+    console.log($(this).data("image-number"))
 })
 
