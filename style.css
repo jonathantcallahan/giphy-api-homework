@@ -1,0 +1,27 @@
+* {
+    border: 2px solid red;
+    font-family: sans-serif;
+}
+
+#button-container {
+    display: inline-block;
+    float: left;
+    width: 55%;
+}
+
+#input-container {
+    display: inline-block;
+    float: right;
+    width: 30%;
+}
+
+.button {
+    display: inline-block;
+    width: 300px;
+    background-color: bisque;
+    color: gray;
+    text-align: center;
+    padding: 5px 0px 5px 0px;
+    margin: 5px;
+    border-radius: 5px;
+}
