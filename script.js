@@ -1,5 +1,5 @@
 var topics = ["surprised","laughing","clapping","confused","happy"]
-
+var gifSearch
 function createButton(buttonTopic){
     var buttonHtml = "<div data='" + buttonTopic + "' class='button'>" + buttonTopic + "</div>"
     $("#button-container").append(buttonHtml)
@@ -20,16 +20,16 @@ $("#enter-emotion").on("click", function(){
 
 function createImage(userInput){
     for(var i = 0; i < 10; i++){
-        var imgUrl = userInput.data[i].images.fixed_width.url;
+        var imgUrl = userInput.data[i].images.fixed_height_still.url;
         var imgRating = userInput.data[i].rating;
-        var imgHtml = ("<div class='giphy-image'><div class='image-rating'> Rating: " + imgRating + "</div><img id='image' image-number='" + i + "' src='" + imgUrl + "'></div>") 
+        var imgHtml = ("<div class='giphy-image' image-number='" + i + "'><div class='image-rating'> Rating: " + imgRating + "</div><img id='image' image-paused='true' image-number='" + i + "' src='" + imgUrl + "'></div>") 
         $("#image-container").append(imgHtml);
     }
 }
 
-$(".button").on("click", function(){
+$(document).delegate(".button", "click", function(){
     $("#image-container").html("");
-    var gifSearch = $(this).attr("data")
+    gifSearch = $(this).attr("data")
     console.log(gifSearch);
     var apiKey = "dc6zaTOxFJmzC"
     var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10")
@@ -42,7 +42,18 @@ $(".button").on("click", function(){
     })
 })
 
-$("#image").on("click", function(){
-    console.log($(this).data("image-number"))
+$(document).delegate("#image", "click", function(){
+    if($(this).attr("image-paused") === "true"){
+        console.log($(this).attr("src"))
+        var imageIndex = $(this).attr("image-number")
+        console.log(imageIndex)
+        var imageUrl = "https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10"
+        $.ajax({
+            url: 
+        }).done(function(){
+            $(this).attr("src") = userInput.data[imageIndex].images.fixed_height.url;
+        })
+        
+    } 
 })
 
