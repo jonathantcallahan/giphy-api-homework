@@ -25,3 +25,11 @@
     margin: 5px;
     border-radius: 5px;
 }
+
+#image-container {
+    clear: both;
+}
+
+.giphy-image {
+    display: inline-block;
+}

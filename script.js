@@ -18,6 +18,27 @@ $("#enter-emotion").on("click", function(){
     createButton($("#emot-input-box").val())
 })
 
+function createImage(userInput){
+    for(var i = 0; i < 10; i++){
+        var imgUrl = userInput.data[i].images.fixed_width.url;
+        var imgRating = userInput.data[i].rating;
+        var imgHtml = ("<div class='giphy-image'><div class='image-rating'>" + imgRating + "</div><img src='" + imgUrl + "'></div>") 
+        $("#image-container").append(imgHtml);
+    }
+}
+
 $(".button").on("click", function(){
-    console.log($(this).attr("data"))
+    $("#image-container").html("");
+    var gifSearch = $(this).attr("data")
+    console.log(gifSearch);
+    var apiKey = "dc6zaTOxFJmzC"
+    var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10")
+    console.log(queryUrl);
+    $.ajax({
+        url: queryUrl,
+        method: "GET",
+    }).done(function(response){
+        createImage(response)
+    })
 })
+
