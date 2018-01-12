@@ -23,10 +23,12 @@ $("#enter-emotion").on("click", function(){
 
 function createImage(userInput){
     for(var i = 0; i < 10; i++){
-        var imgUrl = userInput.data[i].images.fixed_height_still.url;
-        var imgRating = userInput.data[i].rating;
-        var imgHtml = ("<div class='giphy-image' image-number='" + i + "'><div class='image-rating'> Rating: " + imgRating + "</div><img id='image' image-paused='true' image-number='" + i + "' src='" + imgUrl + "'></div>") 
-        $("#image-container").append(imgHtml);
+
+        var imageHolder = $("<div>").attr("class", "giphy-image")
+        var rating = $("<p>").text(userInput.data[i].rating).attr("class","image-rating")
+        var img = $("<img>").attr("id", "img").attr("src", userInput.data[i].images.fixed_height_still.url).attr("paused", "true").attr("mov-url",userInput.data[i].images.fixed_height.url).attr("still-url", userInput.data[i].images.fixed_height_still.url)
+       imageHolder.append(rating, img)
+        $("#image-container").append(imageHolder);
     }
 }
 
@@ -44,23 +46,13 @@ $(document).delegate(".button", "click", function(){
     })
 })
 
-$(document).delegate("#image", "click", function(){
-    var r = $(this).attr("image-paused");
-    console.log(r);
-    var el = $(this)[0];
-    if(r){
-        console.log($(this).attr("src"))
-        var imageIndex = $(this).attr("image-number")
-        console.log(imageIndex)
-        var imageUrl = "https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10"
-        $.ajax({
-            url: imageUrl,
-            method: "GET",
-        }).done(function(userInput){
-            console.log(el)
-            el.attr("src", userInput.data[imageIndex].images.fixed_height.url);
-        })
-        
-    } 
+$(document).delegate("#img", "click", function(){
+    console.log("test")
+    var paused = $(this).attr("paused")
+    if(paused === "true"){
+        $(this).attr("src", $(this).attr("mov-url")) 
+        $(this).attr("paused", "false")
+    }
+    
 })
 
