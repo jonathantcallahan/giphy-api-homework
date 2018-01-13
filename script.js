@@ -49,9 +49,14 @@ $(document).delegate(".button", "click", function(){
 $(document).delegate("#img", "click", function(){
     console.log("test")
     var paused = $(this).attr("paused")
+    var gif = $(this).attr("mov-url");
+    var still = $(this).attr("still-url");
     if(paused === "true"){
-        $(this).attr("src", $(this).attr("mov-url")) 
+        $(this).attr("src", gif) 
         $(this).attr("paused", "false")
+    } else {
+        $(this).attr("src", still)
+        $(this).attr("paused", "true")
     }
     
 })
