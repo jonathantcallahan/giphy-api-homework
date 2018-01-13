@@ -22,7 +22,7 @@ $("#enter-emotion").on("click", function(){
 })
 
 function createImage(userInput){
-    for(var i = 0; i < 10; i++){
+    for(var i = 0; i < 20; i++){
 
         var imageHolder = $("<div>").attr("class", "giphy-image")
         var rating = $("<p>").text("Rating: " + userInput.data[i].rating).attr("class","image-rating")
@@ -36,7 +36,7 @@ $(document).delegate(".button", "click", function(){
     $("#image-container").html("");
     gifSearch = $(this).attr("data")
     console.log(gifSearch);
-    var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=10")
+    var queryUrl = ("https://api.giphy.com/v1/gifs/search?q=" + gifSearch + "&api_key=" + apiKey  + "&limit=20")
     console.log(queryUrl);
     $.ajax({
         url: queryUrl,
