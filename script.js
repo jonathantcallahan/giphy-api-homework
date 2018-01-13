@@ -25,7 +25,7 @@ function createImage(userInput){
     for(var i = 0; i < 10; i++){
 
         var imageHolder = $("<div>").attr("class", "giphy-image")
-        var rating = $("<p>").text(userInput.data[i].rating).attr("class","image-rating")
+        var rating = $("<p>").text("Rating: " + userInput.data[i].rating).attr("class","image-rating")
         var img = $("<img>").attr("id", "img").attr("src", userInput.data[i].images.fixed_height_still.url).attr("paused", "true").attr("mov-url",userInput.data[i].images.fixed_height.url).attr("still-url", userInput.data[i].images.fixed_height_still.url)
        imageHolder.append(rating, img)
         $("#image-container").append(imageHolder);
@@ -59,5 +59,15 @@ $(document).delegate("#img", "click", function(){
         $(this).attr("paused", "true")
     }
     
+})
+
+$("#emot-input-box").click(function(){
+    var inputVal = $(this).val()
+    
+    if(inputVal === "Enter a different reaction!"){
+        $(this).val("")
+    } else {
+        return;
+    } 
 })
 
